@@ -4,12 +4,15 @@ import { COLORS } from '../constants'
 import { useDispatch } from 'react-redux'
 import { addPlace } from '../store/places.actions'
 import ImageSelector from '../components/ImageSelector'
+import LocationSelector from '../components/LocationSelector'
 
 
 const NewPlaceScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const [titleValue, setTitleValue] = React.useState('')
     const [imageValue, setImageValue] = React.useState('')
+    const [locationValue,setLocationValue] = React.useState('')
+
 
     const titleChangeHandler = text => {
         setTitleValue(text)
@@ -17,12 +20,9 @@ const NewPlaceScreen = ({ navigation }) => {
 
 
     const savePlaceHandler = () => {
-        dispatch(addPlace(titleValue,imageValue))
+        dispatch(addPlace(titleValue,imageValue,locationValue))
         navigation.navigate('Direcciones')
     }
-
-
-
 
 
     return (
@@ -31,6 +31,7 @@ const NewPlaceScreen = ({ navigation }) => {
                 <Text style={styles.label}>Titulo</Text>
                 <TextInput style={styles.input} onChangeText={titleChangeHandler}/>
                 <ImageSelector onImage={image=>setImageValue(image)} />
+                <LocationSelector onLocation={location=>setLocationValue(location)}  />
                 <Button title="Guardar" color={COLORS.MAROON} onPress={savePlaceHandler} />
             </View>
            
