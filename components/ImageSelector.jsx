@@ -10,7 +10,7 @@ const ImageSelector = ({onImage}) => {
 
     const VerifyPermissions = async () => {
         const { status } = await ImagePicker.requestCameraPermissionsAsync()
-        console.log(status)
+        //console.log(status)
         if(status !== 'granted') {
             Alert.alert('Permisos insuficientes')
             return false
@@ -28,7 +28,7 @@ const ImageSelector = ({onImage}) => {
             aspect: [16,9],
             quality: 0.8,
         })
-        console.log(image.assets)
+        //console.log(image.assets)
         setPickedUri(image.assets[0].uri)
         onImage(image.assets[0].uri)
      }

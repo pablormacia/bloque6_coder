@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { View, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native'
 import { COLORS } from '../constants'
 import { useDispatch } from 'react-redux'
@@ -7,7 +7,7 @@ import ImageSelector from '../components/ImageSelector'
 import LocationSelector from '../components/LocationSelector'
 
 
-const NewPlaceScreen = ({ navigation }) => {
+const NewPlaceScreen = ({ navigation,mapLocation }) => {
     const dispatch = useDispatch()
     const [titleValue, setTitleValue] = React.useState('')
     const [imageValue, setImageValue] = React.useState('')
@@ -23,6 +23,7 @@ const NewPlaceScreen = ({ navigation }) => {
         dispatch(addPlace(titleValue,imageValue,locationValue))
         navigation.navigate('Direcciones')
     }
+
 
 
     return (

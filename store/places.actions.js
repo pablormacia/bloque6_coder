@@ -17,7 +17,7 @@ export const addPlace = (title, image,location) => {
         if(!resData.results) throw new Error("No se han encontrado datos para las coordenadas seleccionadas")
 
         const address = resData.results[0].formatted_address;
-        console.log("Address:", address )
+        //console.log("Address:", address )
 
         const fileName = image.split('/').pop()
         const Path = FileSystem.documentDirectory + fileName

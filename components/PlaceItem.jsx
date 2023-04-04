@@ -4,7 +4,7 @@ import React from 'react'
 import { COLORS } from '../constants'
 
 const PlaceItem = ({title, image, address, onSelect}) => {
-console.log(title)
+//console.log(title)
   return (
     <TouchableOpacity onPress={onSelect} style={styles.placeItem}>
         <Image style={styles.image} source={{uri: image}} />

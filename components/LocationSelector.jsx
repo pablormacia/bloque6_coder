@@ -5,11 +5,18 @@ import * as Location from 'expo-location'
 import { COLORS } from "../constants";
 import MapPreview from "./MapPreview";
 
+import { useNavigation,useRoute } from "@react-navigation/native";
+import { useEffect } from "react";
+
+import MapView from 'react-native-maps'
+
 const LocationSelector = ({onLocation}) => {
     const [pickedLocation, setPickedLocation] = useState()
+    const navigation = useNavigation();
+    const route = useRoute()
 
     const handleGetLocation = async () => {
-        const isLocationOk = await veryPermissions()
+        const isLocationOk = await verifyPermissions()
         if (!isLocationOk) return;
         
         const location = await Location.getCurrentPositionAsync({
@@ -27,7 +34,7 @@ const LocationSelector = ({onLocation}) => {
         })
     }
 
-    const veryPermissions = async () => {
+    const verifyPermissions = async () => {
         const {status} = await Location.requestForegroundPermissionsAsync()
 
         if (status !=='granted') {
@@ -37,19 +44,40 @@ const LocationSelector = ({onLocation}) => {
         return true
     }
 
+    const handlePickOnMap= async () => {
+        const isLocationOk = await verifyPermissions()
+        if (!isLocationOk) return
+
+        navigation.navigate("Map")
+    }
+
+    const mapLocation = route?.params?.mapLocation;
+    console.log("mapLocation:", mapLocation)
+
+    useEffect(()=>{
+        if(mapLocation) {
+            setPickedLocation(mapLocation)
+            onLocation(mapLocation)
+        }
+    })
+    console.log("pickedLocation: ", pickedLocation)
   return (
     <View style={styles.container}>
-        <MapPreview style={styles.preview}>
-            {pickedLocation
-                ? <Text>{pickedLocation.lat},{pickedLocation.lng}</Text>
-                : <Text>Esperando ubicación...</Text>
-            }
+        <MapPreview style={styles.preview} location={pickedLocation}>
+            <Text>Esperando ubicación...</Text>
         </MapPreview>
-        <Button
-            title="Obtener ubicación"
-            color={COLORS.PEACH_PUFF}
-            onPress={handleGetLocation}
-        />
+        <View style={styles.action}>
+            <Button
+                title="Obtener ubicación"
+                color={COLORS.PEACH_PUFF}
+                onPress={handleGetLocation}
+            />
+            <Button 
+                title="Elegir del mapa"
+                color={COLORS.LIGTH_PINK}
+                onPress={handlePickOnMap}
+            />
+        </View>
     </View>
   );
 };
@@ -72,5 +100,9 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
+    },
+    action: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
 });
