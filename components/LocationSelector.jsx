@@ -52,7 +52,7 @@ const LocationSelector = ({onLocation}) => {
     }
 
     const mapLocation = route?.params?.mapLocation;
-    console.log("mapLocation:", mapLocation)
+    //console.log("mapLocation:", mapLocation)
 
     useEffect(()=>{
         if(mapLocation) {
@@ -60,7 +60,7 @@ const LocationSelector = ({onLocation}) => {
             onLocation(mapLocation)
         }
     })
-    console.log("pickedLocation: ", pickedLocation)
+    //console.log("pickedLocation: ", pickedLocation)
   return (
     <View style={styles.container}>
         <MapPreview style={styles.preview} location={pickedLocation}>
