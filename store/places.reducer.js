@@ -1,4 +1,4 @@
-import { ADD_PLACE, LOAD_PLACES } from './places.actions'
+import { ADD_PLACE, LOAD_PLACES, REMOVE_PLACE } from './places.actions'
 import Place from '../models/Place'
 
 const initialState = {
@@ -34,6 +34,10 @@ export default (state = initialState, action) => {
                     item.title,
                     item.image
                 ))
+            }
+        case REMOVE_PLACE:
+            return {
+                ...state, 
             }
         default:
             return state

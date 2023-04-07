@@ -1,8 +1,9 @@
 import * as FileSystem from "expo-file-system";
-import { insertAddres, fetchAddress } from "../db";
+import { insertAddress, fetchAddress, deleteAddress } from "../db";
 
 export const ADD_PLACE = "ADD_PLACE"
 export const LOAD_PLACES = "LOAD_PLACES"
+export const REMOVE_PLACE = "REMOVE_PLACE"
 
 import { MAP } from "../constants";
 //console.log("Map:", MAP)
@@ -70,6 +71,18 @@ export const loadAddress = () => {
             console.log(result)
             dispatch({type: LOAD_PLACES, places:result.rows._array})
         } catch(error) {
+            throw error
+        }
+    }
+}
+
+export const removePlace = (id) => {
+    return async dispatch => {
+        try {
+            const result = await deleteAddress(id)
+            console.log(result)
+            dispatch({type: REMOVE_PLACE, payload: id})
+        } catch (error) {
             throw error
         }
     }
