@@ -20,7 +20,10 @@ export default (state = initialState, action) => {
             const newPlace = new Place(
                 action.payload.id.toString(),
                 action.payload.title,
-                action.payload.image
+                action.payload.image,
+                action.payload.address,
+                action.payload.lat,
+                action.payload.lng,
             )
             return {
                 ...state,

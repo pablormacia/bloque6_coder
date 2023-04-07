@@ -51,7 +51,7 @@ export const addPlace = (title, image, location) => {
 
     dispatch({
       type: ADD_PLACE,
-      payload: { id: resultDb.insertId, title, image: Path },
+      payload: { id: resultDb.insertId, title, image: Path,address, lat:location.lat, lng:location.lng },
     });
 
     /* dispatch({type: ADD_PLACE, payload: {
@@ -68,7 +68,7 @@ export const loadAddress = () => {
     return async dispatch => {
         try {
             const result = await fetchAddress()
-            console.log(result)
+            console.log("Load Address:",result)
             dispatch({type: LOAD_PLACES, places:result.rows._array})
         } catch(error) {
             throw error
